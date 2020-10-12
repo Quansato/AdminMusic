@@ -1,10 +1,11 @@
+
 <?php
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateFavouritesTable extends Migration
+class CreateGenresTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +14,11 @@ class CreateFavouritesTable extends Migration
      */
     public function up()
     {
-        Schema::create('favourites', function (Blueprint $table) {
+        Schema::create('genres', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('id_album')->unsigned();
-            $table->integer('id_song')->unsigned();
+            $table->string('name', 100);
+            $table->string('img_path', 250);
             $table->timestamps();
-            $table->foreign('id_song')->references('id')->on('songs');
-            $table->foreign('id_album')->references('id')->on('albums');
         });
     }
 
@@ -30,6 +29,6 @@ class CreateFavouritesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('favourites');
+        Schema::dropIfExists('genres');
     }
 }

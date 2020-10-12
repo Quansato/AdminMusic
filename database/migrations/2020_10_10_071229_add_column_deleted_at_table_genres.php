@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateGenresTable extends Migration
+class AddColumnDeletedAtTableGenres extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,8 @@ class CreateGenresTable extends Migration
      */
     public function up()
     {
-        Schema::create('genres', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name', 100);
-            $table->string('img_path', 250);
-            $table->timestamps();
+        Schema::table('genres', function (Blueprint $table) {
+            $table->softDeletes();
         });
     }
 
@@ -28,6 +25,8 @@ class CreateGenresTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('genres');
+        Schema::table('genres', function (Blueprint $table) {
+           $table->dropColumn('deleted_at');
+        });
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateFavouritesTable extends Migration
+class CreateSongAlbumTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,11 @@ class CreateFavouritesTable extends Migration
      */
     public function up()
     {
-        Schema::create('favourites', function (Blueprint $table) {
-            $table->increments('id');
+        Schema::create('song_album', function (Blueprint $table) {
             $table->integer('id_album')->unsigned();
-            $table->integer('id_song')->unsigned();
-            $table->timestamps();
-            $table->foreign('id_song')->references('id')->on('songs');
             $table->foreign('id_album')->references('id')->on('albums');
+            $table->integer('id_song')->unsigned();
+            $table->foreign('id_song')->references('id')->on('songs');
         });
     }
 
@@ -30,6 +28,6 @@ class CreateFavouritesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('favourites');
+        Schema::dropIfExists('song_album');
     }
 }
